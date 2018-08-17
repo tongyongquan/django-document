@@ -20,3 +20,5 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('polls/', include('polls.urls'))
 ]
+
+# 每个app独立urls,再由项目根urls包含
