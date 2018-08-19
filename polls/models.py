@@ -17,7 +17,8 @@ class Question(models.Model):
 
     # 对象方法,看是不是超过当前时区时间减去一天
     def was_published_recently(self):
-        return self.pub_date >= timezone.now() - datetime.timedelta(days=1)
+        return timezone.now() >= self.pub_date >= timezone.now() - datetime.timedelta(days=1)
+
 
 
 class Choice(models.Model):
