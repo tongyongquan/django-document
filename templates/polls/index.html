@@ -1,3 +1,12 @@
+{#在你的 polls 目录下创建一个名为 static 的目录。Django 将在该目录下查找静态文件，#}
+{#这种方式和 Diango 在 polls/templates/ 目录下查找 template 的方式类似。#}
+{% load static %}
+
+<link rel="stylesheet" type="text/css" href="{% static 'polls/style.css' %}">
+{#虽然我们可以像管理模板文件一样，把static文件直接放入polls/static ——而不是创建另一个名为 polls 的子文件夹，#}
+{#不过这实际上是一个很蠢的做法。Django 只会使用第一个找到的静态文件。如果你在其它应用中有一个相同名字的静态文件，#}
+{#jango 将无法区分它们。#}
+
 {% if latest_question_list %}
     <ul>
     {% for question in latest_question_list %}
