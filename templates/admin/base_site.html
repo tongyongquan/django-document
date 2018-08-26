@@ -1,0 +1,20 @@
+<!--
+自定义后台模板:
+在 templates 目录内创建名为 admin 的目录，
+随后，将存放 Django 默认模板的目录
+（django/contrib/admin/templates）内的模板文件
+admin/base_site.html 复制到这个目录内。
+django路径:
+$ python -c "import django; print(django.__path__)"
+-->
+
+{% extends "admin/base.html" %}
+
+{% block title %}{{ title }} | {{ site_title|default:_('Django site admin') }}{% endblock %}
+
+{% block branding %}
+{#  用站点的名字替换文件内的 ``{{ site_header|default:_('Django administration') }}``（包含大括号）。#}
+<h1 id="site-name"><a href="{% url 'admin:index' %}">Polls Administration</a></h1>
+{% endblock %}
+
+{% block nav-global %}{% endblock %}
