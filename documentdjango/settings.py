@@ -39,6 +39,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     # 'polls',
     'apps.blog',  # 注册app
+    'django_summernote'  # 富文本编辑器
 ]
 
 MIDDLEWARE = [
@@ -127,5 +128,11 @@ STATICFILES_DIRS = [
         os.path.join(BASE_DIR, 'static'),
     ]
 
+MEDIA_URL = '/media/'
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media/')
+
 # 分页配置
 PAGE_NUM = 5
+
+
+

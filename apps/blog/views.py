@@ -15,7 +15,7 @@ def home(request):  # 主页
         post_list = paginator.page(1)
     except EmptyPage:
         post_list = paginator.page(paginator.num_pages)
-    return render(request, 'blog/home.html', {'post_list': post_list})
+    return render(request, 'home.html', {'post_list': post_list})
 
 
 def detail(request, id):  # 查看文章详情
@@ -25,4 +25,4 @@ def detail(request, id):  # 查看文章详情
         tags = post.tags.all()  # 获取文章对应所有标签
     except Article.DoesNotExist:
         raise Http404
-    return render(request, 'blog/post.html', {'post': post, 'tags': tags})
+    return render(request, 'post.html', {'post': post, 'tags': tags})

@@ -1,10 +1,10 @@
-{% extends "blog/base.html" %}
+{% extends "base.html" %}
 {% block content %}
     <div class="posts">
         {% for post in post_list %}
             <section class="post">
                 <header class="post-header">
-                    <h2 class="post-title"><a href="{% url 'blog:detail' id=post.id %}">{{ post.title }}</a></h2>
+                    <h2 class="post-title"><a href="{% url 'detail' id=post.id %}">{{ post.title }}</a></h2>
                     <p class="post-meta">
                         发布时间: <a class="post-author" href="#">{{ post.pub_time |date:'Y/m/d'}}</a>&nbsp;&nbsp;
                         分类: <a class="post-category post-category-pure" href="#">{{ post.category }}</a>&nbsp;&nbsp;
@@ -18,10 +18,12 @@
 
                 <div class="post-description">
                     <p>
-                        {{ post.content|truncatechars_html:100 }}
+                        {#striptags用于过滤正文中所有的HTML标签#}
+                        {#truncatechars用于截取正文前300个字符#}
+                        {{ post.content|striptags|truncatechars:300 }}
                     </p>
                 </div>
-                <div><a class="post-category post-category-design" href="{% url 'blog:detail' id=post.id %}">阅读全文</a></div>
+                <div><a class="post-category post-category-design" href="{% url 'detail' id=post.id %}">阅读全文</a></div>
 
             </section>
         {% endfor %}
