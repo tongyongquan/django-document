@@ -19,9 +19,31 @@
             <nav class="nav">
                 <ul class="nav-list">
                     <li class="nav-item">
-                        <a class="pure-button" href="https://github.com/leeyis/">Github</a>
+                        {% for category in category_list %}
+                            <a class="pure-button" href="{% url 'category_menu' id=category.id %}"
+                               style="text-decoration: none">{{ category }}</a>
+                        {% endfor %}&nbsp;
                     </li>
                 </ul>
+                </ul>
+                <br>
+                <ul class="nav-list">
+                    <li>
+                        <a href="#" style="text-decoration: none">
+                            <i class="fa fa-weixin" style="font-size: 30px" aria-hidden="true" title="微信公众号"></i>
+                        </a>
+                        &nbsp;
+                        <a href=mailto:1070969926@qq.com style="text-decoration: none">
+                            <i class="fa fa-envelope-o" style="font-size: 30px" aria-hidden="true" title="邮箱"></i>
+                        </a>
+                        &nbsp;
+                        <a href="https://github.com/tongyongquan/" style="text-decoration: none" title="Github">
+                            <i class="fa fa-github" style="font-size: 34px" aria-hidden="true"></i>
+                        </a>
+                        &nbsp;
+                    </li>
+                </ul>
+
             </nav>
         </div>
     </div>
@@ -32,5 +54,26 @@
         </div>
     </div>
 </div>
+
+<!-- 回到顶部 开始-->
+<div class="go-top">
+    <div class="arrow"></div>
+    <div class="stick"></div>
+</div>
+<script type="text/javascript" src="{% static 'js/jquery-3.3.1.min.js' %}"></script>
+<script>
+    $(function () {
+        $(window).scroll(function () {
+            if ($(window).scrollTop() > 1000)
+                $('div.go-top').show();
+            else
+                $('div.go-top').hide();
+        });
+        $('div.go-top').click(function () {
+            $('html, body').animate({scrollTop: 0}, 500);
+        });
+    });
+</script>
+<!-- 回到顶部 结束-->
 </body>
 </html>
