@@ -15,7 +15,9 @@
     <div class="sidebar pure-u-1 pure-u-md-1-4">
         <div class="header">
             <h1 class="brand-title"><a href="{% url 'home' %}">博客</a></h1>
-            <h2 class="brand-tagline">Love Learning, Love Sharing</h2>
+           <br>
+            <h2 class="brand-tagline">Love Learning, Love Sharing...</h2>
+            <br>
             <nav class="nav">
                 <ul class="nav-list">
                     <li class="nav-item">
@@ -25,37 +27,49 @@
                         {% endfor %}&nbsp;
                     </li>
                 </ul>
+                <br>
+                <h3 class="brand-tagline" style="margin: 2%">文章归档</h3>
+                <ul class="nav-list" style="margin: 2%">
+                    {% for m in months %}
+                        <li>
+                            <a href="{% url 'archives' year=m.year month=m.month %}"
+                               style="text-decoration: none">{{ m | date:'Y年m月' }}</a>
+                        </li>
+                    {% empty %}
+                        暂无归档！
+                    {% endfor %}
                 </ul>
                 <br>
                 <ul class="nav-list">
-                    <li>
-                        <a href="#" style="text-decoration: none">
-                            <i class="fa fa-weixin" style="font-size: 30px" aria-hidden="true" title="微信公众号"></i>
-                        </a>
-                        &nbsp;
-                        <a href=mailto:1070969926@qq.com style="text-decoration: none">
-                            <i class="fa fa-envelope-o" style="font-size: 30px" aria-hidden="true" title="邮箱"></i>
-                        </a>
-                        &nbsp;
-                        <a href="https://github.com/tongyongquan/" style="text-decoration: none" title="Github">
-                            <i class="fa fa-github" style="font-size: 34px" aria-hidden="true"></i>
-                        </a>
-                        &nbsp;
-                    </li>
-                </ul>
-
+                <li>
+                    <a href="#" style="text-decoration: none">
+                        <i class="fa fa-weixin" style="font-size: 30px" aria-hidden="true" title="微信公众号"></i>
+                    </a>
+                    &nbsp;
+                    <a href=mailto:1070969926@qq.com style="text-decoration: none">
+                        <i class="fa fa-envelope-o" style="font-size: 30px" aria-hidden="true" title="邮箱"></i>
+                    </a>
+                    &nbsp;
+                    <a href="https://github.com/tongyongquan/" style="text-decoration: none" title="Github"
+                       target="_blank">
+                        <i class="fa fa-github" style="font-size: 34px" aria-hidden="true"></i>
+                    </a>
+                    &nbsp;
+                </li>
+            </ul>
             </nav>
         </div>
     </div>
+    <!--左侧边栏 结束-->
+    <!--文章列表 开始-->
     <div class="content pure-u-1 pure-u-md-3-4">
         <div>
             {% block content %}
             {% endblock %}
         </div>
     </div>
+    <!--文章列表 结束-->
 </div>
-
-<!-- 回到顶部 开始-->
 <div class="go-top">
     <div class="arrow"></div>
     <div class="stick"></div>
@@ -74,6 +88,5 @@
         });
     });
 </script>
-<!-- 回到顶部 结束-->
 </body>
 </html>

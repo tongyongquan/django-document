@@ -66,3 +66,22 @@ def search_tag(request, tag):  # 标签搜索
     except EmptyPage:
         post_list = paginator.page(paginator.num_pages)
     return render(request, 'tag.html', {'post_list': post_list, 'category_list': categories, 'tag': tag})
+
+
+def archives(request, year, month):
+    posts = Article.objects.filter(pub_time__year=year, pub_time__month=month).order_by('-pub_time')
+    paginator = Paginator(posts, settings.PAGE_NUM)  # 每页显示数量
+    try:
+        page = request.GET.get('page')  # 获取URL中page参数的值
+        post_list = paginator.page(page)
+    except PageNotAnInteger:
+        post_list = paginator.page(1)
+    except EmptyPage:
+        post_list = paginator.page(paginator.num_pages)
+    return render(request, 'archive.html', {
+        'post_list': post_list,
+        'category_list': categories,
+        'months': months,
+        'year_month': year+'年'+month+'月'
+        }
+    )
