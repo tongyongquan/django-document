@@ -1,8 +1,10 @@
 {% extends '_base.html' %}
 {% load static %}
 
+{% block titile %}拾忆{% endblock %}
+
 {% block head %}
-       <link rel="stylesheet" type="text/css" href="{% static 'css/home.css' %}"/>
+    <link rel="stylesheet" type="text/css" href="{% static 'css/home.css' %}"/>
 
 {% endblock %}
 
@@ -10,38 +12,94 @@
 
 
 {% block content %}
+    <div class="container">
+        <div class="row">
+            <div class="col-md-9 tyq-box">
+                <div class="container">
+                    {% for post in post_list %}
+                        <article class="tyq-post">
+                            <div class="post-header">
+                                <h4 class="post-title"><a href="{% url 'detail' id=post.id %}"
+                                                          style="text-decoration: none">{{ post.title }}</a></h4>
+                                <ul class="tyq-ul post-meta">
+                                    <li><i class="fa fa-calendar"
+                                           aria-hidden="true"></i>&nbsp;{{ post.pub_time |date:'Y-m-d' }}&nbsp;&nbsp;
+                                    </li>
+                                    <li><i class="fa fa-eye" aria-hidden="true"></i>&nbsp;{{ post.views }}次浏览&nbsp;&nbsp;
+                                    </li>
+                                    <li><i class="fa fa-book"></i>&nbsp;{{ post.category }}&nbsp;&nbsp;
+                                    </li>
+                                </ul>
+                            </div>
 
-<div class="row">
-<div class="col-9"></div>
-<div class="col-3">
-    <div class="tyq-title my-4">分类</div>
-    <ul class="tyq-ul">
-        <li><a href="#">Journey</a> (40)</li>
-        <li><a href="#">Photography</a> (08)</li>
-        <li><a href="#">Lifestyle</a> (11)</li>
-        <li><a href="#">Food &amp; Drinks</a> (21)</li>
-    </ul>
+                            <div class="post-preview">
+                                <a href="#"><img src="http://zoyothemes.com/blogezy/images/blog/blog-1.jpg" alt=""
+                                                 class="img-fluid rounded"></a>
+                            </div>
 
-    <div class="tyq-title">归档</div>
-    <ul class="tyq-ul">
-        <li><a href="#">Journey</a> (40)</li>
-        <li><a href="#">Photography</a> (08)</li>
-        <li><a href="#">Lifestyle</a> (11)</li>
-        <li><a href="#">Food &amp; Drinks</a> (21)</li>
-    </ul>
+                            <div class="post-content">
+                                <p>
+                                    {#striptags用于过滤正文中所有的HTML标签#}
+                                    {#truncatechars用于截取正文前300个字符#}
+                                    {{ post.content|striptags|truncatechars:200 }}
+                                </p>
+                            </div>
+                            <div><a href="{% url 'detail' id=post.id %}" class="btn btn-outline-custom ">阅读全文 </a>
+                            </div>
+                        </article>
+                    {% endfor %}
+                    <div class="row mt-3">
+                        <div class="col-md-12">
+                            <ul class="pagination">
+                                <li class="next"><a href="#"><i class="fa fa-angle-left" aria-hidden="true"></i></a>
+                                </li>
+                                <li class="active"><a href="#">1</a></li>
+                                <li><a href="#">2</a></li>
+                                <li><a href="#">3</a></li>
+                                <li><a href="#">4</a></li>
+                                <li><a href="#">5</a></li>
+                                <li class="prev"><a href="#"><i class="fa fa-angle-right" aria-hidden="true"></i></a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
 
-    <div class="tyq-title">标签</div>
-    <div class="tyq-tag">
-        <a href="#">logo</a>
-        <a href="#">business</a>
-        <a href="#">corporate</a>
-        <a href="#">e-commerce</a>
-        <a href="#">agency</a>
-        <a href="#">responsive</a>
+            </div>
+            <div class="col-md-3">
+                <div class="tyq-box">
+                    <div class="tyq-title ">分类</div>
+                    <ul class="tyq-ul">
+                        {% for category in category_list %}
+                            <li><a href="#">{{ category }}</a> ({{ category.article_set.all.count }})</li>
+                        {% endfor %}
+                    </ul>
+                </div>
+                <div class="tyq-box mt-3">
+                    <div class="tyq-title">归档</div>
+                    <ul class="tyq-ul">
+                           {% for m,v in months.items %}
+                        <li>
+                            <a href="{% url 'archives' year=m.year month=m.month %}"
+                               style="text-decoration: none">{{ m | date:'Y年m月' }}</a>({{ v }})
+                        </li>
+                    {% empty %}
+                        暂无归档！
+                    {% endfor %}
+
+                    </ul>
+                </div>
+                <div class="tyq-box  mt-3">
+                    <div class="tyq-title">标签</div>
+                    <div class="tyq-tag">
+                        {% for  tag in tag_list  %}
+                <a href="#">{{ tag }}</a>
+                                {% endfor %}
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
-</div>
-</div>
-
 
 
 {% endblock %}
