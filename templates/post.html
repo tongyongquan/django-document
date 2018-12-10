@@ -1,6 +1,22 @@
-{% extends "base.html" %}
+{% extends '_base.html' %}
+{% load static %}
+
+{% block titile %}拾忆{% endblock %}
+
+{% block head %}
+    <link rel="stylesheet" type="text/css" href="{% static 'css/home.css' %}"/>
+
+{% endblock %}
+
+
+
+
 {% block content %}
-<div class="posts">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-9 tyq-box">
+                <div class="container">
+                 <div class="posts">
         <section class="post">
             <header class="post-header">
                 <h2 class="post-title">{{ post.title }}</h2>
@@ -36,5 +52,43 @@
             </a>
         {% endif %}
     </div>
-    <!-- 上下篇文章切换 结束-->
+    <!-- 上下篇文章切换 结束--> </div>
+
+            </div>
+            <div class="col-md-3">
+                <div class="tyq-box">
+                    <div class="tyq-title ">分类</div>
+                    <ul class="tyq-ul">
+                        {% for category in category_list %}
+                            <li><a href="#">{{ category }}</a> ({{ category.article_set.all.count }})</li>
+                        {% endfor %}
+                    </ul>
+                </div>
+                <div class="tyq-box mt-3">
+                    <div class="tyq-title">归档</div>
+                    <ul class="tyq-ul">
+                           {% for m,v in months.items %}
+                        <li>
+                            <a href="{% url 'archives' year=m.year month=m.month %}"
+                               style="text-decoration: none">{{ m | date:'Y年m月' }}</a>({{ v }})
+                        </li>
+                    {% empty %}
+                        暂无归档！
+                    {% endfor %}
+
+                    </ul>
+                </div>
+                <div class="tyq-box  mt-3">
+                    <div class="tyq-title">标签</div>
+                    <div class="tyq-tag">
+                        {% for  tag in tag_list  %}
+                <a href="#">{{ tag }}</a>
+                                {% endfor %}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
 {% endblock %}
