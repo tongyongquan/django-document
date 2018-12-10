@@ -1,16 +1,19 @@
 from django.shortcuts import render
-from apps.blog.models import Article, Category, Tag
+from .models import Article, Category, Tag
 from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
 from django.http import Http404
 from django.conf import settings
 
-categories = Category.objects.all()  # 获取全部的分类对象
-tags = Tag.objects.all()  # 获取全部的标签对象
-pub_dates = Article.objects.datetimes('pub_time', 'month', order='DESC')
-months = {}
-for pub_date in pub_dates:
-    count = Article.objects.filter(pub_time__year=pub_date.year, pub_time__month=pub_date.month).count()
-    months.update({pub_date: count})
+try:
+    categories = Category.objects.all()  # 获取全部的分类对象
+    tags = Tag.objects.all()  # 获取全部的标签对象
+    pub_dates = Article.objects.datetimes('pub_time', 'month', order='DESC')
+    months = {}
+    for pub_date in pub_dates:
+        count = Article.objects.filter(pub_time__year=pub_date.year, pub_time__month=pub_date.month).count()
+        months.update({pub_date: count})
+except Exception as e:
+    print(e)
 
 
 def home(request):  # 主页
