@@ -15,3 +15,23 @@ body {
 .navbar-brand,.nav-link{
   color: black !important;
 }
+
+
+.tyq-ul {
+    list-style: none !important;
+    margin: 0;
+    padding: 0;
+    font-size: 14px;
+}
+
+.tyq-ul a {
+    color: #333333;
+    margin-right: 5px;
+    transition: all 0.5s;
+    text-decoration: none !important;
+    outline: none !important;
+}
+
+.tyq-ul a:hover {
+    color: #0db3e3;
+}

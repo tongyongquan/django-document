@@ -1,4 +1,7 @@
-from django.shortcuts import render
+from django.contrib.auth import authenticate, login, logout
+from django.contrib.auth.decorators import login_required
+from django.contrib.auth.models import User
+from django.shortcuts import render, redirect
 from .models import Article, Category, Tag
 from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
 from django.http import Http404
@@ -93,3 +96,52 @@ def archives(request, year, month):
         'year_month': year + '年' + month + '月'
     }
                   )
+
+
+def manager_login(request):
+    if request.method == "POST":
+        username = request.POST.get('username')
+        raw_password = request.POST.get('password')
+        try:
+            user = authenticate(username=username, password=raw_password)
+            login(request, user)
+            return redirect('/')
+        except Exception as e:
+            print(e)
+            message = "用户名或密码错误!"
+            args = {
+                'username': username,
+                'raw_password': raw_password,
+                'message': message
+            }
+            return render(request, 'login.html', args)
+
+    return render(request, 'login.html')
+
+
+def manager_register(request):
+    if request.method == "POST":
+        username = request.POST.get('username')
+        raw_password = request.POST.get('password')
+        try:
+            if User.objects.filter(username=username).count() != 0:
+                raise KeyError
+            u = User(username=username)
+            u.set_password(raw_password)
+            u.save()
+            return redirect('/blog_login')
+        except:
+            message = "用户名已被使用或不合法,请重新输入!"
+            args = {
+                'username': username,
+                'raw_password': raw_password,
+                'message': message
+            }
+            return render(request, 'register.html', args)
+
+    return render(request, 'register.html')
+
+@login_required()
+def manager_logout(request):
+    logout(request)
+    return redirect('/')

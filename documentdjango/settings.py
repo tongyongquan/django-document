@@ -27,6 +27,7 @@ DEBUG = False
 
 ALLOWED_HOSTS = ['*']
 
+LOGIN_URL = '/blog_login'
 
 # Application definition
 
