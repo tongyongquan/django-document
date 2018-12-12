@@ -86,16 +86,7 @@
                         {% endfor %}
                     </ul>
                 </div>
-                <div class="tyq-box  mt-3">
-                    <div class="tyq-title">标签</div>
-                    <div class="tyq-tag">
-                        {% for  tag in tag_list  %}
-                 <a href="{% url 'search_tag' tag %}">{{ tag }}</a>
-
-                                {% endfor %}
-                    </div>
-                </div>
-                <div class="tyq-box mt-3">
+             <div class="tyq-box mt-3">
                     <div class="tyq-title">热门阅读</div>
                     <ul class="tyq-ul">
                               {#                           {% for m,v in months.items %}#}
@@ -115,6 +106,16 @@
 
                     </ul>
                 </div>
+                <div class="tyq-box  mt-3">
+                    <div class="tyq-title">标签</div>
+                    <div class="tyq-tag">
+                        {% for  tag in tag_list  %}
+                 <a href="{% url 'search_tag' tag %}">{{ tag }}</a>
+
+                                {% endfor %}
+                    </div>
+                </div>
+
             </div>
         </div>
     </div>
