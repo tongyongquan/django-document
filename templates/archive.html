@@ -86,20 +86,6 @@
                         {% endfor %}
                     </ul>
                 </div>
-                <div class="tyq-box mt-3">
-                    <div class="tyq-title">归档</div>
-                    <ul class="tyq-ul">
-                           {% for m,v in months.items %}
-                        <li>
-                            <a href="{% url 'archives' year=m.year month=m.month %}"
-                               style="text-decoration: none">{{ m | date:'Y年m月' }}</a>({{ v }})
-                        </li>
-                    {% empty %}
-                        暂无归档！
-                    {% endfor %}
-
-                    </ul>
-                </div>
                 <div class="tyq-box  mt-3">
                     <div class="tyq-title">标签</div>
                     <div class="tyq-tag">
@@ -108,6 +94,26 @@
 
                                 {% endfor %}
                     </div>
+                </div>
+                <div class="tyq-box mt-3">
+                    <div class="tyq-title">热门阅读</div>
+                    <ul class="tyq-ul">
+                              {#                           {% for m,v in months.items %}#}
+{#                        <li>#}
+{#                            <a href="{% url 'archives' year=m.year month=m.month %}"#}
+{#                               style="text-decoration: none">{{ m | date:'Y年m月' }}</a>({{ v }})#}
+{#                        </li>#}
+                               {% for article in hot_articles %}
+                        <li>
+                            <a href="{% url 'detail' id=article.id %}"
+                               style="text-decoration: none">{{article.title }}</a>({{ article.views }})
+                        </li>
+                                   <br>
+                    {% empty %}
+                        暂无热门阅读！
+                    {% endfor %}
+
+                    </ul>
                 </div>
             </div>
         </div>

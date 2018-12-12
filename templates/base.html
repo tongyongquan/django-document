@@ -28,7 +28,7 @@
                     </li>
                 </ul>
                 <br>
-                <h3 class="brand-tagline" style="margin: 2%">文章归档</h3>
+                <h3 class="brand-tagline" style="margin: 2%">文章热门阅读</h3>
                 <ul class="nav-list" style="margin: 2%">
                     {% for m in months %}
                         <li>
@@ -36,7 +36,7 @@
                                style="text-decoration: none">{{ m | date:'Y年m月' }}</a>
                         </li>
                     {% empty %}
-                        暂无归档！
+                        暂无热门阅读！
                     {% endfor %}
                 </ul>
                 <br>
