@@ -61,11 +61,11 @@ class Article(models.Model):
 
     # 下一篇
     def next_article(self):  # id比当前id大，状态为已发布，发布时间不为空
-        return Article.objects.filter(id__gt=self.id, status='p', pub_time__isnull=False).first()
+        return Article.objects.filter(id__gt=self.id, status='p', pub_time__isnull=False).order_by('pub_time').first()
 
     # 前一篇
     def prev_article(self):  # id比当前id小，状态为已发布，发布时间不为空
-        return Article.objects.filter(id__lt=self.id, status='p', pub_time__isnull=False).first()
+        return Article.objects.filter(id__lt=self.id, status='p', pub_time__isnull=False).order_by('-pub_time').first()
 
     class Meta:
         ordering = ['-pub_time']  # 按文章创建日期降序
