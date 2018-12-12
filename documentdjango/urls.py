@@ -31,6 +31,7 @@ urlpatterns = [
                   path('blog_login', views.manager_login, name='blog_login'),
                   path('blog_logout', views.manager_logout, name='blog_logout'),
                   path('blog_register', views.manager_register, name='blog_register'),
+                  path('', include('apps.comment.urls', namespace='comment')),
 
                   path('summernote/', include('django_summernote.urls')),
                   path('jet/', include('jet.urls', 'jet')),  # Django JET URLS

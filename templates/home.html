@@ -97,7 +97,7 @@
                                {% for article in hot_articles %}
                         <li>
                             <a href="{% url 'detail' id=article.id %}"
-                               style="text-decoration: none">{{article.title }}</a>({{ article.views }})
+                               style="text-decoration: none">{{article.title }}</a>
                         </li>
                                    <br>
                     {% empty %}

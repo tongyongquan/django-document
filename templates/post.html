@@ -39,7 +39,7 @@
         </section>
 </div><!-- /.blog-post -->
      <!-- 上下篇文章切换 开始-->
-    <div>
+    <div style="overflow: hidden">
         {% if prev_post %}
             <a class="footer" href="{% url 'detail' id=prev_post.id %}" style="text-decoration: none; float: left;">
                 <i class="fa fa-angle-left"></i>&nbsp;&nbsp;上一篇：{{ prev_post.title }}
@@ -52,9 +52,30 @@
             </a>
         {% endif %}
     </div>
-    <!-- 上下篇文章切换 结束--> </div>
+    <!-- 上下篇文章切换 结束-->
 
+                                <form action="#" method="post" class="mt-4">
+
+                                            <div class="row">
+                                                <div class="col-sm-12">
+                                                    <div class="form-group">
+                                                        <textarea onfocus="textareaHandle(this)" id="comment" class="form-control textareaBox" rows="5" placeholder="请输入你的评论" name="comment" required="" style="margin-top: 0px;margin-bottom: 0px;height: 177px;"></textarea>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <div class="row">
+                                                <div class="col-sm-12">
+                                                    <div class="form-group">
+                                                        <button disabled name="submit" type="submit" id="submit" class="btn btn-dark">发布评论</button>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </form>
+
+                </div>
             </div>
+
             <div class="col-md-3">
                 <div class="tyq-box">
                     <div class="tyq-title ">分类</div>
@@ -96,6 +117,45 @@
             </div>
         </div>
     </div>
+{% block js %}
+    <script>
 
+        function textareaHandle(self) {
+            $(self).on('input propertychange', function (event) {
+                if ($(self).val().length > 0) {
+                    $('#submit').removeAttr("disabled")
+                } else {
+
+                    $('#submit').attr('disabled', 'true')
+                }
+            });
+            $(self).blur(function () {
+                $(self).off('input propertychange');
+            });
+        }
+
+          //发送评论
+        $.ajaxSetup({
+            data: {csrfmiddlewaretoken: '{{ csrf_token }}'},
+        });
+
+        $('#submit').click(function () {
+
+            selfLoadingHandle();
+            $.ajax({
+                type: 'POST',
+                url: "{% url 'comment:comment' %}",
+                data: {
+                    'story_id': {{story_id}},
+                    'comment_text': $('.textareaBox').val(),
+                },
+                success: function () {
+                    selfLoadingHandle(false);
+                    location.reload();
+                }
+            })
+        })
+        </script>
+{% endblock %}
 
 {% endblock %}

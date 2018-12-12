@@ -23,8 +23,7 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SECRET_KEY = '68t3^4#fzo3j7t%l&tiuaxic&ihzp0sgqr&@*!i(ve!!+yzc58'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
-
+DEBUG = True
 ALLOWED_HOSTS = ['*']
 
 LOGIN_URL = '/blog_login'
@@ -42,7 +41,8 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     # 'polls',
     'apps.blog',  # 注册app
-    'django_summernote'  # 富文本编辑器
+    'apps.comment',
+    'django_summernote',  # 富文本编辑器
 ]
 
 MIDDLEWARE = [
