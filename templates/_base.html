@@ -26,11 +26,31 @@
 {% block content %}
 {% endblock %}
 
+
+<div class="go-top">
+    <div class="arrow"></div>
+    <div class="stick"></div>
+</div>
+
       <!-- FOOTER -->
       <footer class="container bg-light">
-        <p class="float-right"><a href="#">Back to top</a></p>
         <p>© 2017-2018 Company, Inc. · <a href="#">Privacy</a> · <a href="#">Terms</a></p>
       </footer>
     </main>
+
+<script>
+    $(function () {
+        $(window).scroll(function () {
+            if ($(window).scrollTop() > 1000)
+                $('div.go-top').show();
+            else
+                $('div.go-top').hide();
+        });
+        $('div.go-top').click(function () {
+            $('html, body').animate({scrollTop: 0}, 500);
+        });
+    });
+</script>
+
 </body>
 </html>

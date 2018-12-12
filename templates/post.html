@@ -60,7 +60,7 @@
                     <div class="tyq-title ">分类</div>
                     <ul class="tyq-ul">
                         {% for category in category_list %}
-                            <li><a href="#">{{ category }}</a> ({{ category.article_set.all.count }})</li>
+                            <li><a href ="{% url 'category_menu' category.id%}">{{ category }}</a> ({{ category.article_set.all.count }})</li>
                         {% endfor %}
                     </ul>
                 </div>
@@ -82,7 +82,8 @@
                     <div class="tyq-title">标签</div>
                     <div class="tyq-tag">
                         {% for  tag in tag_list  %}
-                <a href="#">{{ tag }}</a>
+                 <a href="{% url 'search_tag' tag %}">{{ tag }}</a>
+
                                 {% endfor %}
                     </div>
                 </div>
