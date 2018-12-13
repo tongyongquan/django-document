@@ -101,6 +101,8 @@
                     </div>
                 {% endfor %}
 </div>
+                                    {% if request.user.is_authenticated %}
+
                                             <div class="row">
                                                 <div class="col-sm-12">
                                                     <div class="form-group">
@@ -116,7 +118,9 @@
                                                     </div>
                                                 </div>
                                             </div>
-
+                {% else %}
+                                        <a href="{% url 'blog_login' %}">请登录后发表评论</a>
+{% endif %}
                 </div>
             </div>
 
