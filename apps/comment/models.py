@@ -18,7 +18,7 @@ class BaseComment(models.Model):
 
 class ArticleComment(BaseComment):
     """文章评论模型"""
-    story = models.ForeignKey(Article, on_delete=models.CASCADE, related_name='comments', verbose_name='评论')
+    article = models.ForeignKey(Article, on_delete=models.CASCADE, related_name='comments', verbose_name='评论')
 
     class Meta:
         ordering = ['-time']

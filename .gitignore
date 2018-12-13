@@ -88,10 +88,10 @@ upload
 dump.rdb
 
 dev_settings.py
-*/migrations/*
+apps/*/migrations/*
 media/*
 static/media/*
-!*/migrations/__init__.py
+!apps/*/migrations/__init__.py
 */settings_local.py
 node_modules
 venv/

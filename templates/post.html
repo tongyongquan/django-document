@@ -53,9 +53,54 @@
         {% endif %}
     </div>
     <!-- 上下篇文章切换 结束-->
+                    <br>
+                    <hr>
+<div class="container">
 
-                                <form action="#" method="post" class="mt-4">
+ {% for comment in post.comments.all %}
+                    <div class="mt-2" >
+                        <div class="media mb-3">
+                            <div class="mr-3">
+                                <img class="img-fluid u-avatar rounded-circle"
+                                     src="/static/image/avatar.png" alt="Image Description" style="width: 60%">
+                            <h4 class=" mt-1 mb-1 ml-3">
+                                    <a class="d-block h6 mb-0" href="#">{{ comment.user.username }}</a>
+                                </h4>
+                            </div>
+                            <div class="media-body w-100">
 
+                                <a class="text-secondary float-right d-flex">
+                                    <p>{% if comment.good > 0 %} {{ comment.good }} {% endif %}
+                                    </p>
+                                    <span onclick="comment_good(this,'{{ comment.id }}')"
+                                          class="far fa-thumbs-up mt-1 ml-1"></span>
+                                </a>
+
+                                <p style="word-break: break-all;">{{ comment.content }}</p>
+{#                                {% if comment.replies.all.count == 0 %}#}
+{#                                    <a class="text-primary--air transition-3d-hover"#}
+{#                                       href="{% url 'comment:replies' comment.id %}">#}
+{#                                        回复</a>#}
+{#                                {% else %}#}
+{#                                    <a class="text-primary--air transition-3d-hover"#}
+{#                                       href="{% url 'comment:replies' comment.id %}">View#}
+{#                                        all {{ comment.replies.all.count }} replies#}
+{#                                    </a>#}
+{#                                {% endif %}#}
+                                <small class="d-block text-muted">{{ comment.time|timesince }} 前</small>
+
+
+                            </div>
+                        </div>
+                    </div>
+                {% empty %}
+                    <div class="commentsBox mt-1">
+                        <div class="media-body">
+                            <p>暂无评论</p>
+                        </div>
+                    </div>
+                {% endfor %}
+</div>
                                             <div class="row">
                                                 <div class="col-sm-12">
                                                     <div class="form-group">
@@ -64,14 +109,13 @@
                                                 </div>
                                             </div>
 
-                                            <div class="row">
+                                            <div class="row mt-3">
                                                 <div class="col-sm-12">
                                                     <div class="form-group">
-                                                        <button disabled name="submit" type="submit" id="submit" class="btn btn-dark">发布评论</button>
+                                                        <button disabled name="submit" type="submit" id="submit" onclick="submit_func()" class="btn btn-dark">发布评论</button>
                                                     </div>
                                                 </div>
                                             </div>
-                                        </form>
 
                 </div>
             </div>
@@ -139,22 +183,40 @@
             data: {csrfmiddlewaretoken: '{{ csrf_token }}'},
         });
 
-        $('#submit').click(function () {
-
-            selfLoadingHandle();
+        function submit_func() {
             $.ajax({
                 type: 'POST',
                 url: "{% url 'comment:comment' %}",
                 data: {
-                    'story_id': {{story_id}},
+                    'post_id': {{post.id}},
                     'comment_text': $('.textareaBox').val(),
                 },
                 success: function () {
-                    selfLoadingHandle(false);
                     location.reload();
                 }
             })
-        })
+        }
+
+
+          // 评论点赞
+        $.ajaxSetup({
+            data: {csrfmiddlewaretoken: '{{ csrf_token }}'},
+        });
+
+        function comment_good(obj, comment_id) {
+
+            $.ajax({
+                type: 'POST',
+                url: "{% url 'comment:comment_good' %}",
+                data: {
+                    'id': comment_id,
+                },
+                success: function (data) {
+                    $(obj).prev().text(data['comment_good']);
+                    $(obj).attr('onclick', '')
+                }
+            })
+        }
         </script>
 {% endblock %}
 

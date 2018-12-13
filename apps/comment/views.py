@@ -12,17 +12,12 @@ from apps.blog.models import Article
 
 def write_comment(request):
     if request.is_ajax():
-        story_comment = ArticleComment()
-        story_comment.content = request.POST.get('comment_text')
-        story_comment.user = request.user
-        story_id = request.POST.get('story_id')
-        story_comment.story_id = story_id
-        story_comment.score = request.POST.get('score')
-        story_comment.save()
-        score = ArticleComment.objects.filter(story_id=story_id).aggregate(Avg('score'))['score__avg']
-        story = Article.objects.only('score').get(id=story_id)
-        story.score = round(score, 1)
-        story.save()
+        article_comment = ArticleComment()
+        article_comment.content = request.POST.get('comment_text')
+        article_comment.user = request.user
+        article_id = request.POST.get('post_id')
+        article_comment.article_id = article_id
+        article_comment.save()
         return HttpResponse('success')
 
 
